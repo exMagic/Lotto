@@ -10,11 +10,34 @@
 using namespace std;
 int liczba;
 int typpy[6];
+int wylosowaneLiczby[6];
 double konto=100;
-
-int main()
-
-{
+int wynik=0;
+int menu;
+///////////////////////////
+int losuj(){
+    cout << "Stan Twojego konta: "<< konto-3<<endl << endl;
+    cout << "WITAJ! za 2 sekundy nastapi zwolnienie blokady" << endl;
+    sleep(2);
+    srand(time(NULL));
+    
+    for(int i=0;i<6;i++){
+        liczba=rand()%49+1;
+        cout<<"\a"<<liczba<<"\n";
+        wylosowaneLiczby[i]=liczba;
+        sleep(1);
+    }
+    cout <<"Wylosowane liczby to: "
+    <<wylosowaneLiczby[0]<<" "
+    <<wylosowaneLiczby[1]<<" "
+    <<wylosowaneLiczby[2]<<" "
+    <<wylosowaneLiczby[3]<<" "
+    <<wylosowaneLiczby[4]<<" "
+    <<wylosowaneLiczby[5]<<endl;
+    return 0;
+}
+///////////////////////////
+int podaj(){
     cout << "Witaj Otrzymujesz 100zł na start." << endl;
     cout << "Koszt jednego zakładu to 3zł." << endl;
     cout << "Chcesz spróbować szczęścia? jeśli tak to" << endl;
@@ -30,18 +53,30 @@ int main()
     <<typpy[3]<<" "
     <<typpy[4]<<" "
     <<typpy[5]<<endl;
+    return 0;
+}
+
+int main()
+
+{
+    podaj();
+    losuj();
     for (;;) {
         
-        cout << "WITAJ! za 2 sekundy nastapi zwolnienie blokady" << endl;
-        sleep(2);
-        srand(time(NULL));
         
-        for(int i=0;i<6;i++){
-            liczba=rand()%49+1;
-            cout<<"\a"<<liczba<<"\n";
+        
+        for (int k=0; k<=5; k++) {
             
-            sleep(1);
+            for (int i=k; i<=5; i++) {
+                //porównuje pierwszą moją liczbę z wszystkimi wylosowanymi
+                if (typpy[k]==wylosowaneLiczby[i]) {
+                    wynik++;
+                }
+            }
         }
+        cout<<endl<<"Twój wynik: "<<wynik<<endl;
+        cout<<"czy chcesz zagrać jeszcze raz: (Y/N)"<<endl;
+       
     }
     return 0;
 }
