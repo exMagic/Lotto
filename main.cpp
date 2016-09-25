@@ -1,5 +1,5 @@
 //  Symulator Lotto
-//  Version 1.3
+//  Version 1.4
 //  Created by Maciej Anuszkiewicz on 25/09/2016.
 //  Copyright © 2016 Maciej Anuszkiewicz. All rights reserved.
 //
@@ -27,13 +27,7 @@ int podajTypy(){
         cout << "wpisz liczbę nr "<<i+1<<endl;
         cin >> typpy[i];
     }
-    cout <<"Twoje typypowane liczby to: "
-    <<typpy[0]<<" "
-    <<typpy[1]<<" "
-    <<typpy[2]<<" "
-    <<typpy[3]<<" "
-    <<typpy[4]<<" "
-    <<typpy[5]<<endl;
+    
     return 0;
 }
 ///////////////////////////
@@ -45,15 +39,28 @@ int losuj(){
     srand(time(NULL));
     
     for(int i=0;i<6;i++){
-        x=rand()%49+1;
-        y=rand()%49+1;
-        liczba=x*y%49+1;
+        
+        if (i==0) {
+            x=rand()%49+1;
+            y=rand()%49+1;
+            liczba=x*y%49+1;
+            wylosowaneLiczby[0]=liczba;
+        }
+        else{
+            do {
+                x=rand()%49+1;
+                y=rand()%49+1;
+                liczba=x*y%49+1;
+            } while (liczba==wylosowaneLiczby[i-1]);
+            wylosowaneLiczby[i]=liczba;
+            
+        }
+        
         cout<<"\a"<<liczba<<"\n";
-        wylosowaneLiczby[i]=liczba;
         usleep(100000);
     }
-    cout <<"Twoje typypowane liczby to: "
-    <<typpy[0]<<" "
+    cout <<"Twoje typypowane liczby to: ";
+    if(typpy[0]<10){cout<<" "<<typpy[0]}<<typpy[0]<<" "
     <<typpy[1]<<" "
     <<typpy[2]<<" "
     <<typpy[3]<<" "
@@ -130,19 +137,17 @@ int main()
     
     if (menu1==1) {
         while (menu1==1) {
-      
+            
             switch (menu2) {
                 case 1:
-                    cout<<endl<<"/////////////////////////////////";
-                    cout<<endl<<"LOSOWANIE NR "<<numerLosowania<<endl;
+                    cout<<endl<<"/////////////////  "<<"LOSOWANIE NR "<<numerLosowania<<"  //////////////////"<<endl<<endl;
                     losuj();
                     sprawdzWynik();
                     wyswietlStatystyki();
                     break;
                 case 2:
                     podajTypy();
-                    cout<<endl<<"/////////////////////////////////";
-                    cout<<endl<<"LOSOWANIE NR "<<numerLosowania<<endl;
+                    cout<<endl<<"/////////////////  "<<"LOSOWANIE NR "<<numerLosowania<<"  //////////////////"<<endl<<endl;
                     losuj();
                     sprawdzWynik();
                     wyswietlStatystyki();
@@ -160,7 +165,7 @@ int main()
             cout << "1 - Nowa gra " << endl;usleep(100000);
             cout << "2 - Nowa gra i nowe typy" << endl;usleep(100000);
             cout << "0 - Zakończ grę" << endl;usleep(100000);
-             cout << "---------------------" << endl;
+            cout << "---------------------" << endl;
             cin>> menu2;
             wynik=0;
         }
