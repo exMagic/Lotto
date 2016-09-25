@@ -1,5 +1,5 @@
 //  Symulator Lotto
-//  Version 1.4
+//  Version 1.5
 //  Created by Maciej Anuszkiewicz on 25/09/2016.
 //  Copyright © 2016 Maciej Anuszkiewicz. All rights reserved.
 //
@@ -34,8 +34,8 @@ int podajTypy(){
 int losuj(){
     numerLosowania++;
     konto=konto-3;
-    cout << "za sekundę nastąpi zwolnienie blokady" << endl;
-    sleep(1);
+    cout << "za chwilę nastąpi zwolnienie blokady" << endl;
+    usleep(1000000);
     srand(time(NULL));
     
     for(int i=0;i<6;i++){
@@ -59,20 +59,26 @@ int losuj(){
         cout<<"\a"<<liczba<<"\n";
         usleep(100000);
     }
-    cout <<"Twoje typypowane liczby to: ";
-    if(typpy[0]<10){cout<<" "<<typpy[0]}<<typpy[0]<<" "
-    <<typpy[1]<<" "
-    <<typpy[2]<<" "
-    <<typpy[3]<<" "
-    <<typpy[4]<<" "
-    <<typpy[5]<<endl;
-    cout <<"      Wylosowane liczby to: "
-    <<wylosowaneLiczby[0]<<" "
-    <<wylosowaneLiczby[1]<<" "
-    <<wylosowaneLiczby[2]<<" "
-    <<wylosowaneLiczby[3]<<" "
-    <<wylosowaneLiczby[4]<<" "
-    <<wylosowaneLiczby[5];
+    cout <<endl<<"Wylosowane liczby to: ";
+    for (int i=0; i<6; i++) {
+        
+        if(wylosowaneLiczby[i]<10){
+            cout<<" "<<wylosowaneLiczby[i]<<" | ";
+        }
+        else{
+            cout<<wylosowaneLiczby[i]<<" | ";
+        }
+    }
+    cout <<endl<<"Wytypowane liczby to: ";
+    for (int i=0; i<6; i++) {
+        if(typpy[i]<10){
+            cout<<" "<<typpy[i]<<" | ";
+        }
+        else{
+            cout<<typpy[i]<<" | ";
+        }
+    }
+    
     return 0;
 }
 ///////////////////////////
